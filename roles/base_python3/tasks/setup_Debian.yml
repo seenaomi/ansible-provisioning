@@ -1,0 +1,66 @@
+
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  with_items:
+    - build-essential
+    - python3.4
+    - python3.4-dev
+    - python3-pip
+    - supervisor
+  tags: packages
+
+
+- name: Install Pillow (Python package) dependencies
+  apt: name={{ item }} state=installed
+  with_items:
+    - libtiff5
+    - libfreetype6
+    - liblcms2-2
+    - python-libtiff
+    - libwebp5
+    - tcl8.6
+    - tk8.6
+  when: use_pillow == true
+  tags: packages
+
+- name: Try to install libjpeg and liblcms packages for Pillow
+  apt: name={{ item }} state=installed
+  ignore_errors: yes
+  with_items:
+    - libtiff5-dev
+    - tk
+    - tk-dev
+    - libfreetype-dev
+    - libjpeg8
+    - zlib1g
+    - zlib1g-dev
+    - libjpeg8-dev
+    - liblcms2-2
+    - liblcms2-2-dev
+    - libwebp5
+    - libwebp-dev
+    - python-liblcms
+  when: use_pillow == true
+
+# INSTALL SCIPY STACK
+- name: Numpy/Scipy -- Install using apt.
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libblas-dev
+    - liblapack-dev
+    - gfortran
+  when: use_scientific == true
+
+- name: Install matplotlib requirements
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libxft-dev
+    - libjpeg-dev
+    - libfreetype6-dev
+    - libpng12-dev
+    - librsvg2-common
+    - texlive-latex-extra
+    - texlive-extra-utils
+  when: use_scientific == true

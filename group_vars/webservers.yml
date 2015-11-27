@@ -1,0 +1,29 @@
+---
+
+project_web_address: "{{ project_name }}.com"  # Don't include www
+
+webserver_user: www-data
+ssl_cert: "{{ project_name }}_com.crt"
+ssl_cert_key: "www.{{ project_name }}.com.key"
+
+# DIRECTORY SETTINGS
+home_dir: "/opt/{{ project_name }}"
+
+# Virtualenv
+venv_dir: "{{ home_dir }}/env"
+venv_bin: "{{ venv_dir }}/bin"
+
+# Source code
+src_dir: "{{ home_dir }}/src"
+
+# Log files
+log_dir: "/var/log/{{ project_name }}"
+django_log: "{{ log_dir }}/django.log"
+
+# Dynamic content dirs
+content_dir: "/var/opt/{{ project_name }}"
+data_dir: "{{ content_dir }}/data/"  # extra data files
+static_dir: "{{ content_dir }}/static/"
+media_dir: "{{ content_dir }}/media/"
+
+wsgi_py_path: "{{ project_name }}.wsgi.wsgi"

@@ -1,0 +1,10 @@
+---
+
+# Sensitive settings are in encrypted production or development config files.
+db_user: "{{ project_name }}"
+db_name: "{{ project_name }}"
+
+# Database settings for CMS-specific database
+db_user_cms: "{{ project_name }}_cms"
+db_name_cms: "{{ project_name }}_cms"
+

@@ -1,0 +1,9 @@
+[program:{{ project_name }}]
+directory= {{ src_dir }}
+command={{ venv_bin }}/gunicorn_start
+user={{ proj_user }}
+autostart=true
+autorestart=true
+stdout_logfile={{ supervisor_log_file }}
+loglevel=info
+redirect_stderr=true

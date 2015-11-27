@@ -1,0 +1,29 @@
+---
+
+# PROJECT SETTINGS
+hostname: hostname
+#collectd_server_name: 'collecd-web.mydomain.com'
+#locale: 'en_US.UTF-8'
+#language: 'en_US:en'
+#timezone: 'US/New_York'
+#ntp_server: 'pool.ntp.org'
+
+project_name: project
+ssl_dest_dir: /etc/ssl/localcerts
+proj_user: "{{ project_name }}"
+proj_group: "{{ project_name }}"
+
+
+# GIT
+git_repo: "}https://github.com/ctasims/{{ project_name }}"
+
+
+# EXTRA OPTIONS
+
+# Whether we're connecting to dev VM. Used to control permissions on src files.
+vagrant_mode: false
+# Install matplotlib, scipy packages
+use_scientific: false
+
+# For Python imaging libs
+use_pillow: false

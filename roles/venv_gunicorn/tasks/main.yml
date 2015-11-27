@@ -1,0 +1,52 @@
+---
+
+- name: Create the virtualenv
+  command: virtualenv {{ venv_dir }} --no-site-packages
+           creates={{ venv_dir }}/bin/activate
+
+- name: Ensure gunicorn is installed
+  pip: virtualenv={{ venv_dir }} name=gunicorn executable=pip3
+
+- name: Create the Gunicorn script config file
+  template: src=gunicorn_start.j2
+            dest={{ venv_dir }}/bin/gunicorn_start
+            owner={{ gunicorn_user }}
+            group={{ gunicorn_group }}
+            mode=0755
+            backup=yes
+  tags: deploy
+
+- name: Create run dir
+  file:
+    path: "{{ run_dir_path }}"
+    state: directory
+    owner: "{{ gunicorn_user }}"
+    group: "{{ proj_group }}"
+    recurse: yes
+    mode: u=rwX,g=rwx,o=rX
+
+# Log file permissions
+- name: Create project log dir if not already present
+  file:
+    path: "{{ log_dir }}"
+    state: directory
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: u=rX,g=rw,o=rX
+
+- name: Create project log file if not already present
+  file:
+    path: "{{ supervisor_log_file }}"
+    state: touch
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: u=rw,g=rw,o=
+
+#- name: Create the virtualenv postactivate script to set environment variables
+#  template: src=virtualenv_postactivate.j2
+#            dest={{ venv_dir }}/bin/postactivate
+#            owner={{ gunicorn_user }}
+#            group={{ gunicorn_group }}
+#            mode=0640
+#            backup=yes
+#  tags: deploy

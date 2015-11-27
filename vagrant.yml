@@ -1,0 +1,30 @@
+---
+
+- name: Create a(n) "{{ project_name }}" virtual machine via vagrant
+  hosts: dev
+  sudo: yes
+  sudo_user: root
+  remote_user: vagrant
+
+  # Specify systems here for database, webserver. OS can be found in {{ ansible_os_family}} variable.
+  vars:
+    - setup_git_repo: no
+
+  vars_files:
+    - group_vars/all.yml
+    - "host_vars/{{ ansible_os_family }}.yml"
+    - group_vars/dbservers.yml
+    - group_vars/webservers.yml
+    - group_vars/vagrant.yml
+
+  roles:
+    - base_debian
+    - base_python3
+    - db_postgres
+    - rabbitmq
+    - venv_gunicorn
+    - supervisor
+    - web_nginx
+    - django
+    - celery
+    - project_specific

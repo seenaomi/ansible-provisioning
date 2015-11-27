@@ -1,0 +1,41 @@
+---
+
+# GIT
+setup_git_repo: no
+git_branch: master
+
+
+# DJANGO
+django_settings_file: "{{ project_name }}.settings.dev"
+django_secret_key: "NEW_KEY_HERE"
+run_django_migrations: true
+run_django_migrate: true
+run_django_collectstatic: true
+
+
+# DATABASE
+db_root_username: root
+db_root_password: root
+db_password: password
+db_password_cms: pw_cms
+
+db_user_home: /root  # Location of .my.conf to load user/pw of user running ansible role (probably root).
+
+
+# WEBSERVER
+wsgi_filename: wsgi.py
+broker_user: "{{ project_name }}"
+broker_password: "{{ project_name }}"
+
+
+# MAIL
+mail_user: user
+mail_password: password
+
+vagrant_mode: true
+wsgi_py_path: "{{ project_name }}.wsgi.dev"
+
+
+# STRIPE
+stripe_secret_key: sk_test_YNJfa3YtSpHJw7pLReQiwK1e
+stripe_pub_key: pk_test_2zsiwF5P27ze7jZPhqIAL8ps
