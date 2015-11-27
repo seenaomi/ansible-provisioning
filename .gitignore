@@ -74,3 +74,4 @@ static/bower_components/*
 .vagrant
 group_vars/*
 roles/project_specific/*
+servers/*
