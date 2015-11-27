@@ -72,7 +72,5 @@ static/bower_components/*
 
 # PROVISIONING
 .vagrant
-group_vars/all.yml
-group_vars/prod.yml
-group_vars/production.yml
+group_vars/*
 roles/project_specific/*
