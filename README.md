@@ -28,6 +28,10 @@ This system can provision designated computers/servers based on selected roles.
 
 The `vagrant.yml` file has a sample setup for provisioning a VM using vagrant and all the above roles.
 
+All project-specific changes should be added to copies of template files, which are not tracked.
+* group_vars/all.yml
+* roles/project_specific - MAKE SURE to rename this and add it to gitignore, so it will not be tracked
+
 Notes on provisioning:
 * CentOS 6.6 does not include a firewall. The base role downloads appropriate packages, but the firewall must be set up with `system-config-firewall-tui` over ssh.
 * Make sure to enable SSH, HTTP and HTTPS when setting up the firewall!

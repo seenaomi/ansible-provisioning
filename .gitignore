@@ -62,7 +62,6 @@ docs/_build/
 # PyCharm stuff
 .idea
 
-.vagrant
 
 # Frontend bower components
 static/bower_components/*
@@ -70,5 +69,10 @@ static/bower_components/*
 # Mac
 .DS_Store
 
+
+# PROVISIONING
+.vagrant
+group_vars/all.yml
 group_vars/prod.yml
 group_vars/production.yml
+roles/project_specific/*
