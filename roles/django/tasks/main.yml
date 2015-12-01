@@ -3,8 +3,8 @@
 - name: Create the application log file
   file:
     path: "{{ django_log }}"
-    owner: "{{ webserver_user }}"
-    group: "{{ proj_group }}"
+    owner: "{{ proj_user }}"
+    group: "{{ webserver_group }}"
     mode: u=rw,g=rw,o=
     state: touch
   notify: reload nginx

@@ -30,7 +30,7 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 exec gunicorn \
     --name $NAME \
     --workers $NUM_WORKERS \
-    --log-file {{ django_log }} \
+    --log-file {{ gunicorn_log }} \
     --max-requests $MAX_REQUESTS \
     --timeout {{ gunicorn_timeout_seconds|default(30) }} \
     --user $USER --group $GROUP \

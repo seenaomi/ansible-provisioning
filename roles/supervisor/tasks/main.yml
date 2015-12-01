@@ -9,7 +9,7 @@
     group: "{{ proj_group }}"
     mode: u=rwX,g=rw,o=rX
 
-- name: Create project log file if not already present
+- name: Create supervisor log file if not already present
   file:
     path: "{{ supervisor_log_file }}"
     state: touch

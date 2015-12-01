@@ -34,13 +34,14 @@
     group: "{{ gunicorn_group }}"
     mode: u+rwX,g+rw,o=rX
 
-- name: Create project log file if not already present
+
+- name: Create gunicorn log file
   file:
-    path: "{{ supervisor_log_file }}"
+    path: "{{ gunicorn_log }}"
     state: touch
     owner: "{{ gunicorn_user }}"
     group: "{{ gunicorn_group }}"
-    mode: u+rw,g+rw,o=
+    mode: u=rw,g=rw,o=
 
 
 # Access perms. Also run in django/perms file
