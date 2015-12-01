@@ -2,6 +2,7 @@
 directory= {{ src_dir }}
 command={{ venv_bin }}/gunicorn_start
 user={{ proj_user }}
+group={{ proj_group }}
 autostart=true
 autorestart=true
 stdout_logfile={{ supervisor_log_file }}

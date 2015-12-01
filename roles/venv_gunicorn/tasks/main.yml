@@ -60,13 +60,13 @@
     - "{{ media_dir }}"
     - "{{ static_dir }}"
 
-#- name: Give gunicorn group and webserver user access to socket file itself
-#  file:
-#    path: "{{ venv_dir }}/run/gunicorn.sock"
-#    owner: "{{ webserver_user }}"
-#    group: "{{ gunicorn_group }}"
-#    mode: u=rw,g=rw,o=
-#    state: file
+- name: Give gunicorn group and webserver user access to socket file itself
+  file:
+    path: "{{ venv_dir }}/run/gunicorn.sock"
+    owner: "{{ gunicorn_user }}"
+    group: "{{ webserver_group }}"
+    mode: u+rw,g+rw,o=
+    state: file
 
 #- name: Create the virtualenv postactivate script to set environment variables
 #  template: src=virtualenv_postactivate.j2
