@@ -5,6 +5,11 @@
   easy_install: virtualenv={{ venv_dir }} name=Pillow
   when: use_pillow == true
 
+- name: Install matplotlib with easy_install so jpg lib is used
+  easy_install: virtualenv={{ virtualenv_dir }} name=matplotlib
+  when: use_scientific == true
+
+
 - name: Install packages required by the Django app inside virtualenv
   pip: virtualenv={{ venv_dir }} requirements={{ python_requirements_file }}
 
