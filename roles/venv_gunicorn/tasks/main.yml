@@ -1,7 +1,7 @@
 ---
 
 - name: Create the virtualenv
-  command: virtualenv {{ venv_dir }} --no-site-packages
+  command: virtualenv {{ venv_dir }} --no-site-packages --python=python3
            creates={{ venv_dir }}/bin/activate
 
 - name: Ensure gunicorn is installed
@@ -32,7 +32,7 @@
     state: directory
     owner: "{{ gunicorn_user }}"
     group: "{{ gunicorn_group }}"
-    mode: u=rX,g=rw,o=rX
+    mode: u+rwX,g+rw,o=rX
 
 - name: Create project log file if not already present
   file:
@@ -40,7 +40,32 @@
     state: touch
     owner: "{{ gunicorn_user }}"
     group: "{{ gunicorn_group }}"
-    mode: u=rw,g=rw,o=
+    mode: u+rw,g+rw,o=
+
+
+# Access perms. Also run in django/perms file
+- name: Give gunicorn user path access to dir containing socket file and media, static
+  file:
+    path: "{{ item }}"
+    mode: o+X
+    recurse: no
+    state: directory
+  with_items:
+    - /opt/
+    - "{{ home_dir }}"
+    - "{{ venv_dir }}"
+    - "{{ venv_dir }}/run"
+    - "{{ src_dir }}"
+    - "{{ media_dir }}"
+    - "{{ static_dir }}"
+
+#- name: Give gunicorn group and webserver user access to socket file itself
+#  file:
+#    path: "{{ venv_dir }}/run/gunicorn.sock"
+#    owner: "{{ webserver_user }}"
+#    group: "{{ gunicorn_group }}"
+#    mode: u=rw,g=rw,o=
+#    state: file
 
 #- name: Create the virtualenv postactivate script to set environment variables
 #  template: src=virtualenv_postactivate.j2

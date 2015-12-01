@@ -42,7 +42,7 @@
 - name: Users like webserver and proj can access path to src and to app log
   file:
     path: "{{ item }}"
-    mode: g+rX,o=rX
+    mode: u+rX,g+rX
     state: directory
   with_items:
     - "/opt/"
@@ -94,5 +94,5 @@
     path: "{{ venv_dir }}/run/gunicorn.sock"
     owner: "{{ webserver_user }}"
     group: "{{ gunicorn_group }}"
-    mode: u=rw,g=rw,o=
+    mode: u+rw,g+rw,o=
     state: file

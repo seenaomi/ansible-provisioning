@@ -7,7 +7,7 @@
     state: directory
     owner: "{{ webserver_user }}"
     group: "{{ proj_group }}"
-    mode: u=rX,g=rw,o=rX
+    mode: u=rwX,g=rw,o=rX
 
 - name: Create project log file if not already present
   file:
@@ -26,6 +26,22 @@
 - name: Ensure supervisor is installed
   yum: name=supervisor state=present
   when: ansible_os_family == 'RedHat'
+
+
+# Access permissions
+- name: Users like webserver and proj can access path to src and to app log
+  file:
+    path: "{{ item }}"
+    mode: g+rX,o=rX
+    state: directory
+  with_items:
+    - "/opt/"
+    - "/opt/{{ project_name }}/"
+    - "/opt/{{ project_name }}/python-eggs/"
+    - "{{ home_dir }}"
+    - "/var/"
+    - "/var/log/"
+    - "{{ log_dir }}"
 
 
 # Configure supervisor
