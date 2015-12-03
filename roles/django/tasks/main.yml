@@ -12,6 +12,15 @@
 - name: Add gunicorn user to project group
   user: name={{ gunicorn_user }} group={{ proj_group }} state=present
 
+- name: Add project user to vagrant group when using vagrant, so it can access config file
+  user: name={{ proj_user }} groups=vagrant append=yes
+  when: vagrant_mode == true
+
+- name: Add vagrant user to project group when using vagrant, so it can access config file
+  user: name=vagrant groups={{ proj_group }} append=yes
+  when: vagrant_mode == true
+
+
 - include: setup_git_repo.yml
   tags: deploy
 
