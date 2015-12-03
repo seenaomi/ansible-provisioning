@@ -66,7 +66,7 @@
     owner: "{{ gunicorn_user }}"
     group: "{{ webserver_group }}"
     mode: u+rw,g+rw,o=
-    state: file
+    state: touch
 
 #- name: Create the virtualenv postactivate script to set environment variables
 #  template: src=virtualenv_postactivate.j2
