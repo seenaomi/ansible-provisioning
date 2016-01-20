@@ -42,6 +42,16 @@
     mode: u=rw,g=rwX,o=
   tags: deploy
 
+- name: Create sub dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ webserver_user }}"
+    group: "{{ proj_group }}"
+    mode: u=rw,g=rwX,o=
+  with_items: "{{ media_subdirs }}"
+  tags: deploy
+
 - name: Make Django migrations
   django_manage:
     command: makemigrations
