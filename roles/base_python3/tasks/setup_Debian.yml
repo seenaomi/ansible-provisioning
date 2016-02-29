@@ -21,6 +21,7 @@
   when: use_pillow == true
   tags: packages
 
+# These may not all be found. May have to install some manually.
 - name: Install Pillow Debian dependencies
   apt: name={{ item }} state=installed
   with_items:
@@ -30,28 +31,21 @@
     - libfreetype6-dev
     - tk
     - tk-dev
-    - libjpeg8
-    - libjpeg8-dev
     - liblcms2-2
     - liblcms2-dev
     - libwebp5
+  when: use_pillow == true and ansible_os_family == "Debian"
+
+# These may not all be found. May have to install some manually.
+- name: Install Pillow Debian dependencies
+  apt: name={{ item }} state=installed
+  ignore_errors: yes
+  with_items:
+    - libjpeg8
+    - libjpeg8-dev
     - python-liblcms
   when: use_pillow == true and ansible_os_family == "Debian"
 
-#- name: Try to install libjpeg and liblcms packages for Pillow
-#  apt: name={{ item }} state=installed
-#  ignore_errors: yes
-#  with_items:
-#    - libtiff5-dev
-#    - tk
-#    - tk-dev
-#    - libfreetype-dev
-#    - libjpeg8
-#    - zlib1g
-#    - zlib1g-dev
-#    - libjpeg8-dev
-#    - libwebp-dev
-#  when: use_pillow == true
 
 # INSTALL SCIPY STACK
 - name: Numpy/Scipy -- Install using apt.
