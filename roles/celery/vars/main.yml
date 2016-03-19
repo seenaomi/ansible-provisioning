@@ -18,6 +18,7 @@ celerybeat_scripts_dir: "{{ venv_dir }}/scripts"
 celerybeat_template_file: celerybeat_start.j2
 
 celerybeat_schedule_file: "{{ data_dir }}/celerybeat-schedule"
+celerybeat_pid_file: "{{ data_dir }}{{ celerybeat_appname }}.pid"
 
 celerybeat_log_dir: "{{ log_dir }}"
 celerybeat_log_file: "{{ celerybeat_log_dir }}/{{ celerybeat_appname }}.log"

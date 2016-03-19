@@ -81,6 +81,15 @@
   tags:
     - celery
 
+- name: Create the data dir
+  file: path={{ data_dir }}
+        owner={{ webserver_user }}
+        group={{ proj_group }}
+        mode=0774
+        state=directory
+  tags:
+    - celery
+
 - name: Create the celerybeat script file
   template: src={{ celerybeat_template_file }}
             dest={{ celerybeat_scripts_dir }}/{{ celerybeat_appname }}_start
@@ -96,8 +105,16 @@
   tags:
     - celery
 
-- name: Create the {{ celerybeat_appname }} log file
+- name: Create the celerybeat log file
   file: path={{ celerybeat_log_file }}
+        owner={{ celery_user }}
+        group={{ celery_group }}
+        state=touch
+  tags:
+    - celery
+
+- name: Create the celerybeat pid file
+  file: path={{ celerybeat_pid_file }}
         owner={{ celery_user }}
         group={{ celery_group }}
         state=touch
@@ -147,7 +164,7 @@
     - celery
     - deploy
 
-- name: Restart the {{ celerbeaty_appname }} app
+- name: "Restart the {{ celerybeat_appname }} app"
   supervisorctl: name={{ celerybeat_appname }} state=restarted
   when: supervisor_applications.stdout.find('{{ celerybeat_appname }}') != -1
   tags:

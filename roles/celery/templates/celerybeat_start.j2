@@ -10,4 +10,4 @@ cd $DJANGODIR
 
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
-exec celery beat -A {{ project_name }} --schedule {{ celerybeat_schedule_file }} -l info
+exec celery beat -A {{ project_name }} --pidfile {{celerybeat_pid_file }} --schedule {{ celerybeat_schedule_file }} -l info
