@@ -1,3 +1,13 @@
+# Limit # of simultaneous connections per session
+# Directive describes the zone, in which the session states are stored i.e. store in slimits.
+# 1m can handle 32000 sessions with 32 bytes/session, set to 5m x 32000 session
+limit_zone slimits $binary_remote_addr 5m;
+
+# Control maximum number of simultaneous connections for one session i.e.
+# restricts the amount of connections from a single ip address
+limit_conn slimits 5;
+
+
 upstream wsgi_server {
   # fail_timeout=0 means we always retry an upstream even if it failed
   # to return a good HTTP response (in case the Unicorn master nukes a
@@ -33,15 +43,6 @@ server {
     if ($host !~ ^({{ nginx_server_name }}|www.{{ nginx_server_name }})$ ) {
         return 444;
     }
-
-    # Limit # of simultaneous connections per session
-    # Directive describes the zone, in which the session states are stored i.e. store in slimits. ###
-    # 1m can handle 32000 sessions with 32 bytes/session, set to 5m x 32000 session ###
-    limit_zone slimits $binary_remote_addr 5m;
-
-    # Control maximum number of simultaneous connections for one session i.e. ###
-    # restricts the amount of connections from a single ip address ###
-    limit_conn slimits 5;
 
     # Only allow these request methods ##
     if ($request_method !~ ^(GET|HEAD|POST)$ ) {
