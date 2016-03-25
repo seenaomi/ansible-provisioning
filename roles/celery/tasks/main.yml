@@ -46,7 +46,7 @@
   tags:
     - celery
 
-- name: Create the {{ celery_appname }} log file
+- name: Create the celery app log file
   file: path={{ celery_log_file }}
         owner={{ celery_user }}
         group={{ celery_group }}
@@ -157,14 +157,14 @@
     - celery
     - deploy
 
-- name: Restart the {{ celery_appname }} app
+- name: Restart the celery_app app
   supervisorctl: name={{ celery_appname }} state=restarted
   when: supervisor_applications.stdout.find('{{ celery_appname }}') != -1
   tags:
     - celery
     - deploy
 
-- name: "Restart the {{ celerybeat_appname }} app"
+- name: "Restart the celerybeat_app app"
   supervisorctl: name={{ celerybeat_appname }} state=restarted
   when: supervisor_applications.stdout.find('{{ celerybeat_appname }}') != -1
   tags:

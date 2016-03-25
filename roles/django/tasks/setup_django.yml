@@ -21,7 +21,7 @@
     dest: "{{ django_conf_dir }}/.env"
     owner: "{{ proj_user }}"
     group: "{{ proj_group }}"
-    mode: 0440
+    mode: 0400
   tags: deploy
 
 - name: Create python-egg dir

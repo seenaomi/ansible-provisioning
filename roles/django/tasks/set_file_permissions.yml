@@ -24,7 +24,7 @@
   file:
     owner: "{{ proj_user }}"
     group: "{{ proj_group }}"
-    mode: u=rwX,g=rX
+    mode: u=rwX,g=rX,o=
     recurse: yes
     path: "{{ item }}"
   with_items:
@@ -48,10 +48,22 @@
     - "/opt/"
     - "/opt/{{ project_name }}/"
     - "/opt/{{ project_name }}/python-eggs/"
-    - "{{ home_dir }}"
     - "/var/"
     - "/var/log/"
     - "{{ log_dir }}"
+
+# Webserver needs access to dir of wsgi file. Doesn't need read access to it, though.
+- name: Webserver can get to wsgi file
+  file:
+    path: "{{ item }}"
+    mode: o+X
+    state: directory
+  with_items:
+    - "/opt/"
+    - "/opt/{{ project_name }}/"
+    - "/opt/{{ project_name }}/src/"
+    - "/opt/{{ project_name }}/src/{{ project_name }}/"
+    - "/opt/{{ project_name }}/src/{{ project_name }}/wsgi/"
 
 
 # Make SURE it's uppercase X, so doesn't apply to files.
@@ -62,7 +74,7 @@
     path: "{{ media_dir }}"
     owner: "{{ webserver_user }}"
     group: "{{ proj_group }}"
-    mode: u=rwX,g=rwX,o=rX
+    mode: u=rwX,g=rwX,o=
     recurse: yes
 
 - name: Webserver user can only read static dirs and read files
@@ -70,7 +82,7 @@
     path: "{{ static_dir }}"
     owner: "{{ webserver_user }}"
     group: "{{ proj_group }}"
-    mode: u=rwX,g=rX,o=rX
+    mode: u=rwX,g=rX,o=
     recurse: yes
 
 #
