@@ -12,6 +12,16 @@
 #  copy: content="{{ ssl_key }}" dest={{ ssl_dest_dir }}/{{ project_name }}.key
 #  notify: restart nginx
 
+# nginx should have read access to the cert and key
+- name: Make nginx owner of cert and key files and restrict access
+  file:
+    path: "{{ item }}"
+    owner: "{{ webserver_user }}"
+    mode: u=r,g=r,o=
+  with_items:
+    - "{{ ssl_cert_path }}"
+    - "{{ ssl_cert_key_path }}"
+
 - name: Create the Nginx HTTPS configuration file
   template: src=nginx_site_config_https.j2
             dest=/etc/nginx/sites-available/{{ project_name }}

@@ -3,8 +3,8 @@
 project_web_address: "{{ project_name }}.com"  # Don't include www
 
 webserver_user: www-data
-ssl_cert: "{{ project_name }}_com.crt"
-ssl_cert_key: "www.{{ project_name }}.com.key"
+ssl_cert: "{{ domain_name }}_com.crt"
+ssl_cert_key: "{{ domain_name }}.com.key"
 
 # DIRECTORY SETTINGS
 home_dir: "/opt/{{ project_name }}"

@@ -89,7 +89,7 @@
     - "{{ media_dir }}"
     - "{{ static_dir }}"
 
-- name: Give gunicorn group and webserver user access to socket file itself
+- name: Give gunicorn user and webserver group access to socket file itself
   file:
     path: "{{ venv_dir }}/run/gunicorn.sock"
     owner: "{{ gunicorn_user }}"
