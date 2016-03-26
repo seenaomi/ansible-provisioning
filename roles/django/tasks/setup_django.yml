@@ -15,13 +15,24 @@
 
 
 # Create .env file containing django/project-specific configuration data
-- name: Create .env configuration file
+- name: Create .env configuration file with open perms
+  template:
+    src: env.conf.j2
+    dest: "{{ django_conf_dir }}/.env"
+    owner: "{{ proj_user }}"
+    group: "{{ proj_group }}"
+    mode: 0770
+  when: vagrant_mode == true
+  tags: deploy
+
+- name: Create .env configuration file with production perms
   template:
     src: env.conf.j2
     dest: "{{ django_conf_dir }}/.env"
     owner: "{{ proj_user }}"
     group: "{{ proj_group }}"
     mode: 0400
+  when: vagrant_mode == false
   tags: deploy
 
 - name: Create python-egg dir

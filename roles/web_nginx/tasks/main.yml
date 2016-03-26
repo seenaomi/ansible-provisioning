@@ -18,6 +18,7 @@
     path: "{{ item }}"
     owner: "{{ webserver_user }}"
     mode: u=r,g=r,o=
+  when: vagrant_mode == false
   with_items:
     - "{{ ssl_cert_path }}"
     - "{{ ssl_cert_key_path }}"
