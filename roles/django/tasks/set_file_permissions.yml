@@ -67,8 +67,6 @@
 
 
 # Make SURE it's uppercase X, so doesn't apply to files.
-# owner can read, write, execute dirs and read files.
-# group and others can do nothing.
 - name: Webserver user can read, WRITE media dirs and read files
   file:
     path: "{{ media_dir }}"
