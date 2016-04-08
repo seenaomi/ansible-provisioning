@@ -63,6 +63,24 @@
   with_items: "{{ media_subdirs }}"
   tags: deploy
 
+- name: Create static dir
+  file:
+    path: "{{ static_dir }}"
+    state: directory
+    owner: "{{ webserver_user }}"
+    group: "{{ proj_group }}"
+    mode: u=rw,g=rwX,o=
+  tags: deploy
+
+- name: Create static cache dir
+  file:
+    path: "{{ static_dir }}/CACHE"
+    state: directory
+    owner: "{{ webserver_user }}"
+    group: "{{ proj_group }}"
+    mode: u=rw,g=rwX,o=
+  tags: deploy
+
 - name: Make Django migrations
   django_manage:
     command: makemigrations

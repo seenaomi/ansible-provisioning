@@ -77,12 +77,12 @@
     mode: u=rwX,g=rwX,o=
     recurse: yes
 
-- name: Webserver user can only read static dirs and read files
+- name: Webserver user can only read static dirs and read files. proj group can read, write
   file:
     path: "{{ static_dir }}"
     owner: "{{ webserver_user }}"
     group: "{{ proj_group }}"
-    mode: u=rwX,g=rX,o=
+    mode: u=rX,g=rwX,o=
     recurse: yes
 
 #
