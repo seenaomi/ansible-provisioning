@@ -31,9 +31,18 @@
   tags:
     - celery
 
-- name: Create the celery script file
+- name: Create the first celery script file
   template: src={{ celery_template_file }}
             dest={{ celery_scripts_dir }}/{{ celery_appname }}_start
+            owner={{ celery_user }}
+            group={{ celery_group }}
+            mode=0755
+  tags:
+    - celery
+
+- name: Create the second celery script file
+  template: src={{ celery_template_file2 }}
+            dest={{ celery_scripts_dir }}/{{ celery_appname }}2_start
             owner={{ celery_user }}
             group={{ celery_group }}
             mode=0755
@@ -160,6 +169,13 @@
 - name: Restart the celery_app app
   supervisorctl: name={{ celery_appname }} state=restarted
   when: supervisor_applications.stdout.find('{{ celery_appname }}') != -1
+  tags:
+    - celery
+    - deploy
+
+- name: Restart the second celery app
+  supervisorctl: name={{ celery_appname }}2 state=restarted
+  when: supervisor_applications.stdout.find('{{ celery_appname }}2') != -1
   tags:
     - celery
     - deploy
