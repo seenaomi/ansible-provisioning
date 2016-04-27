@@ -8,6 +8,7 @@ hostname: hostname
 #timezone: 'US/New_York'
 #ntp_server: 'pool.ntp.org'
 
+# If you change the project name you MUST re-provision!
 project_name: project
 ssl_dest_dir: /etc/ssl/localcerts
 proj_user: "{{ project_name }}"
