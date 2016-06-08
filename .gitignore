@@ -75,3 +75,4 @@ static/bower_components/*
 group_vars/*
 roles/project_specific/*
 servers/*
+nginx_site_config*
