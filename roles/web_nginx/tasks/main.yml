@@ -23,15 +23,16 @@
     - "{{ ssl_cert_path }}"
     - "{{ ssl_cert_key_path }}"
 
+# Template is in project-specific provision/templates dir
 - name: Create the Nginx HTTPS configuration file
-  template: src=nginx_site_config_https.j2
+  template: src=../../../provision_proj/templates/nginx_site_config_https.j2
             dest=/etc/nginx/sites-available/{{ project_name }}
             backup=yes
   when: vagrant_mode == false
   notify: reload nginx
 
 - name: Create the Nginx HTTP configuration file
-  template: src=nginx_site_config_http.j2
+  template: src=../../../provision_proj/templates/nginx_site_config_http.j2
             dest=/etc/nginx/sites-available/{{ project_name }}
             backup=yes
   when: vagrant_mode == true
