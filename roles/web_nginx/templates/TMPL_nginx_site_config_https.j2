@@ -55,8 +55,8 @@ server {
 
     keepalive_timeout 70;
 
-    # Only requests to our Host are allowed (e.g. www.sghat.com)
-    if ($host !~ ^(sghat.com|www.sghat.com)$ ) {
+    # Only requests to our Host are allowed (e.g. www.forgesolar.com)
+    if ($host !~ ^(forgesolar.com|www.forgesolar.com)$ ) {
         return 444;
     }
 
@@ -85,7 +85,7 @@ server {
     location /static/ {
         alias   /var/opt/{{ project_name }}/static/;
         # Stop deep linking/hotlinking images
-        valid_referers none blocked www.sghat.com sghat.com;
+        valid_referers none blocked www.forgesolar.com forgesolar.com;
         if ($invalid_referer) {
             return   403;
         }
@@ -95,7 +95,7 @@ server {
         alias   /var/opt/{{ project_name }}/media/;
 
         # Stop deep linking/hotlinking images
-        valid_referers none blocked www.sghat.com sghat.com;
+        valid_referers none blocked www.forgesolar.com forgesolar.com;
         if ($invalid_referer) {
             return   403;
         }
