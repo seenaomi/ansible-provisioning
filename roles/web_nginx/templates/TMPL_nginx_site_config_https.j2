@@ -145,8 +145,11 @@ server {
         root /opt/{{ project_name }}/src/templates/;
     }
 
-    error_page 503 /maintenance.html;
-    location = /maintenance.html {
-        root /opt/{{ project_name }}/src/templates/;
+    if (-f /opt/forgesolar/src/templates/maintenance.html) {
+        return 503;
+    }
+    error_page 503 @maintenance;
+    location @maintenance {
+        rewrite ^(.*)$ /maintenance.html break;
     }
 }
