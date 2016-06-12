@@ -46,6 +46,7 @@
   with_items:
     - "{{ ssl_cert_path }}"
     - "{{ ssl_cert_key_path }}"
+    - "{{ ssl_trust_cert_path }}"
 
 # Template is in project-specific provision/templates dir
 - name: Create the Nginx HTTPS configuration file
