@@ -31,6 +31,7 @@ broker_password: "{{ project_name }}"
 # MAIL
 mail_user: user
 mail_password: password
+mail_api_key: dummykey
 
 vagrant_mode: true
 wsgi_py_path: "{{ project_name }}.wsgi.dev"

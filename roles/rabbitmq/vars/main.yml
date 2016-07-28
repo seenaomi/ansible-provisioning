@@ -3,7 +3,7 @@
 rabbitmq_server_name: "{{ inventory_hostname }}"
 
 rabbitmq_admin_user: admin
-rabbitmq_admin_password: password
+rabbitmq_admin_password: "{{ rabbit_admin_pw }}"
 
 rabbitmq_project_vhost: "{{ project_name }}"
 rabbitmq_project_user: "{{ broker_user }}"

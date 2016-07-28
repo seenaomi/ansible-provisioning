@@ -4,6 +4,15 @@
   command: virtualenv {{ venv_dir }} --no-site-packages --python=python3
            creates={{ venv_dir }}/bin/activate
 
+- name: Create python-egg dir
+  file:
+    path: "{{ home_dir }}/python-eggs"
+    state: directory
+    owner: "{{ webserver_user }}"
+    group: "{{ proj_group }}"
+    mode: u=rwx,g=rwX,o=
+  tags: deploy
+
 - name: Ensure gunicorn is installed
   pip: virtualenv={{ venv_dir }} name=gunicorn executable=pip3
 

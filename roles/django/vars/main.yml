@@ -27,6 +27,7 @@ project_credentials:
   DATABASE_PASSWORD: "{{ db_password }}"
   MAIL_USER: "{{ mail_user }}"
   MAIL_PASSWORD: "{{ mail_password }}"
+  MAIL_API_KEY: "{{ mail_api_key }}"
   VENV_DIR: "{{ venv_dir }}"
   PROJECT_SHORT_NAME: "{{ project_name }}"
   STATIC_ROOT: "{{ static_dir }}"
