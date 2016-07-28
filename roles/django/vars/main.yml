@@ -36,3 +36,4 @@ project_credentials:
   BROKER_PASSWORD: "{{ broker_password }}"
   STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
   STRIPE_PUB_KEY: "{{ stripe_pub_key }}"
+  NREL_API_KEY: "{{ nrel_api_key }}"
