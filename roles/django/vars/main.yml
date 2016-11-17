@@ -12,6 +12,7 @@ run_django_makemigrations: true
 # Django Environment variables. Used when running Django commands
 django_environment:
   DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
+  PATH: "{{ venv_dir }}/bin"
 
 # NODEJS settings
 # Pin-Priority of NodeSource repository

@@ -14,7 +14,7 @@
   tags: deploy
 
 - name: Ensure gunicorn is installed
-  pip: virtualenv={{ venv_dir }} name=gunicorn executable=pip3
+  pip: virtualenv={{ venv_dir }} name=gunicorn
 
 - name: Create the Gunicorn script config file
   template: src=gunicorn_start.j2
