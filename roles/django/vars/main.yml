@@ -33,6 +33,7 @@ project_credentials:
   STATIC_ROOT: "{{ static_dir }}"
   MEDIA_ROOT: "{{ media_dir }}"
   DJANGO_LOG: "{{ django_log }}"
+  DJANGO_ERROR_LOG: "{{ django_error_log }}"
   BROKER_USER: "{{ broker_user }}"
   BROKER_PASSWORD: "{{ broker_password }}"
   STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
