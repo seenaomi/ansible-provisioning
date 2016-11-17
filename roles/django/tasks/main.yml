@@ -9,6 +9,15 @@
     state: touch
   notify: reload nginx
 
+- name: Create the application log file for errors only
+  file:
+    path: "{{ django_error_log }}"
+    owner: "{{ webserver_user }}"
+    group: "{{ proj_group }}"
+    mode: u=rw,g=rw,o=
+    state: touch
+  notify: reload nginx
+
 - name: Add gunicorn user to project group
   user: name={{ gunicorn_user }} group={{ proj_group }} state=present
 
