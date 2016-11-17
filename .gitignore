@@ -76,3 +76,6 @@ group_vars/*
 roles/project_specific/*
 servers/*
 nginx_site_config*
+
+# For ansible
+*.retry

@@ -81,6 +81,14 @@
     mode: u=rw,g=rwX,o=
   tags: deploy
 
+- name: Ensure manage.py perms are set
+  file:
+    path: "{{ src_dir }}/manage.py"
+    owner: "{{ proj_user }}"
+    group: "{{ proj_group }}"
+    mode: u=rwx,g=rx,o=
+  tags: deploy
+
 - name: Make Django migrations
   django_manage:
     command: makemigrations
