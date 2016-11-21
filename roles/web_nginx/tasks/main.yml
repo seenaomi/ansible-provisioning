@@ -12,7 +12,7 @@
 - lineinfile: dest=/etc/apt/sources.list.d/nginx.list line="deb-src http://nginx.org/packages/debian/ jessie nginx"
 
 - name: Download PGP key for nginx
-  command: "curl http://nginx.org/keys/nginx_signing.key | apt-key add -"
+  shell: curl http://nginx.org/keys/nginx_signing.key | apt-key add -
 
 
 - name: Install Nginx
