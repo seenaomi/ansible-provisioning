@@ -2,8 +2,8 @@
 
 - name: Create a(n) "{{ project_name }}" virtual machine via vagrant
   hosts: dev
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_user: root
   remote_user: vagrant
 
   # Specify systems here for database, webserver. OS can be found in {{ ansible_os_family}} variable.

@@ -1,7 +1,22 @@
 ---
 
+# Will add NGINX source to apt for latest version
+- name: Ensure apt source file is present
+  file:
+    path: /etc/apt/sources.list.d/nginx.list
+    state: touch
+  tags: deploy
+
+# Add source locs
+- lineinfile: dest=/etc/apt/sources.list.d/nginx.list line="deb http://nginx.org/packages/debian/ jessie nginx"
+- lineinfile: dest=/etc/apt/sources.list.d/nginx.list line="deb-src http://nginx.org/packages/debian/ jessie nginx"
+
+- name: Download PGP key for nginx
+  command: "curl http://nginx.org/keys/nginx_signing.key | apt-key add -"
+
+
 - name: Install Nginx
-  apt: name=nginx update_cache={{ update_apt_cache }} state=installed
+  apt: name=nginx update_cache=yes state=installed
   tags: packages
 
 - name: Create sites-available dir

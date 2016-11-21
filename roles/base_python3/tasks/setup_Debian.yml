@@ -38,7 +38,6 @@
 
 # INSTALL SCIPY STACK
 - name: Numpy/Scipy -- Install using apt.
-  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - libblas-dev
@@ -47,7 +46,6 @@
   when: use_scientific == true
 
 - name: Install matplotlib requirements
-  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - libxft-dev
