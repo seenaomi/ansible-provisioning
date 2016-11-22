@@ -30,7 +30,7 @@ media_dir: "{{ content_dir }}/media/"
 wsgi_py_path: "{{ project_name }}.wsgi.wsgi"
 
 # Celery queue names
-celery_queue1: default
-celery_queue2: queue2
+celery_queue1: celery
+celery_queue2: optimizations
 
 use_https: true
