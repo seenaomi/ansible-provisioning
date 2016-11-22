@@ -28,3 +28,5 @@ use_scientific: false
 
 # For Python imaging libs
 use_pillow: false
+
+use_https: true

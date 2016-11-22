@@ -32,3 +32,5 @@ wsgi_py_path: "{{ project_name }}.wsgi.wsgi"
 # Celery queue names
 celery_queue1: default
 celery_queue2: queue2
+
+use_https: true

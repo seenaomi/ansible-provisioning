@@ -34,6 +34,7 @@ mail_password: password
 mail_api_key: dummykey
 
 vagrant_mode: true
+use_https: false
 wsgi_py_path: "{{ project_name }}.wsgi.dev"
 
 

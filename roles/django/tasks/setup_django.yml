@@ -111,7 +111,7 @@
 
 - name: Run bower install
   django_manage:
-    command: "bower_install --allow-root"
+    command: "bower_install"
     app_path: "{{ src_dir }}"
     virtualenv: "{{ venv_dir }}"
     settings: "{{ django_settings_file }}"
