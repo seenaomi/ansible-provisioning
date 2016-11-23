@@ -10,4 +10,4 @@ cd $DJANGODIR
 
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
-exec celery --app={{ project_name }}:celery_app worker --events --loglevel=info --concurrency={{ celery_num_procs }} --hostname=worker2.%h --queues={{ celery_queue1 }},{{celery_queue2}}
+exec celery --app={{ project_name }}:celery_app worker --events --loglevel=info --concurrency={{ celery_num_procs }} --hostname=worker2.%h --queues={{celery_queue2}}
