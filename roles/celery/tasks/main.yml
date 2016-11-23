@@ -49,6 +49,15 @@
   tags:
     - celery
 
+- name: Create the third celery script file
+  template: src={{ celery_template_file3 }}
+            dest={{ celery_scripts_dir }}/{{ celery_appname }}3_start
+            owner={{ celery_user }}
+            group={{ celery_group }}
+            mode=0755
+  tags:
+    - celery
+
 - name: Create the Supervisor config file
   template: src=supervisor_celery.conf.j2
             dest=/etc/supervisor/conf.d/{{ celery_appname }}.conf
@@ -176,6 +185,13 @@
 - name: Restart the second celery app
   supervisorctl: name={{ celery_appname }}2 state=restarted
   when: supervisor_applications.stdout.find('{{ celery_appname }}2') != -1
+  tags:
+    - celery
+    - deploy
+
+- name: Restart the third celery app
+  supervisorctl: name={{ celery_appname }}3 state=restarted
+  when: supervisor_applications.stdout.find('{{ celery_appname }}3') != -1
   tags:
     - celery
     - deploy

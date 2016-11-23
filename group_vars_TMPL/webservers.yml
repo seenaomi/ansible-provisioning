@@ -3,8 +3,13 @@
 project_web_address: "{{ project_name }}.com"  # Don't include www
 
 webserver_user: www-data
-ssl_cert: "{{ domain_name }}_com.crt"
-ssl_cert_key: "{{ domain_name }}.com.key"
+
+ssl_cert: "{{ project_name }}.crt"
+ssl_cert_path: "{{ ssl_dest_dir }}/{{ ssl_cert }}"
+ssl_cert_key: "{{ project_name }}.key"
+ssl_cert_key_path: "{{ ssl_dest_dir }}/{{ ssl_cert_key }}"
+ssl_trust_cert: "trusted_chain.pem"
+ssl_trust_cert_path: "{{ ssl_dest_dir }}/{{ ssl_trust_cert }}"
 
 # DIRECTORY SETTINGS
 home_dir: "/opt/{{ project_name }}"
@@ -27,10 +32,15 @@ data_dir: "{{ content_dir }}/data/"  # extra data files
 static_dir: "{{ content_dir }}/static/"
 media_dir: "{{ content_dir }}/media/"
 
+media_subdirs:
+  - "{{ media_dir }}/uploads"
+
+
 wsgi_py_path: "{{ project_name }}.wsgi.wsgi"
 
 # Celery queue names
-celery_queue1: celery
-celery_queue2: optimizations
+celery_queue1: "celery"
+celery_queue2: "optimizations"
+celery_num_procs: 4  # Also in vagrant settings
 
 use_https: true
