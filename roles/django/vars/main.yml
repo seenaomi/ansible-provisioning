@@ -21,22 +21,5 @@ nodejs_version: '0.12'
 
 
 # Secret credentials for Django project
-project_credentials:
-  DJANGO_SECRET_KEY: "{{ django_secret_key }}"
-  DATABASE_NAME: "{{ db_name }}"
-  DATABASE_USER: "{{ db_user }}"
-  DATABASE_PASSWORD: "{{ db_password }}"
-  MAIL_USER: "{{ mail_user }}"
-  MAIL_PASSWORD: "{{ mail_password }}"
-  MAIL_API_KEY: "{{ mail_api_key }}"
-  VENV_DIR: "{{ venv_dir }}"
-  PROJECT_SHORT_NAME: "{{ project_name }}"
-  STATIC_ROOT: "{{ static_dir }}"
-  MEDIA_ROOT: "{{ media_dir }}"
-  DJANGO_LOG: "{{ django_log }}"
-  DJANGO_ERROR_LOG: "{{ django_error_log }}"
-  BROKER_USER: "{{ broker_user }}"
-  BROKER_PASSWORD: "{{ broker_password }}"
-  STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
-  STRIPE_PUB_KEY: "{{ stripe_pub_key }}"
-  NREL_API_KEY: "{{ nrel_api_key }}"
+project_credentials: "{{ DJANGO_SECRETS }}"  # In provision_proj webservers var file
+

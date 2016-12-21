@@ -16,7 +16,11 @@
 
 
 - name: Install Nginx
-  apt: name=nginx update_cache=yes state=installed
+  apt: name=nginx-full update_cache=yes state=installed
+  tags: packages
+
+- name: Install Nginx
+  apt: name=nginx-common update_cache=yes state=installed
   tags: packages
 
 - name: Create sites-available dir
@@ -38,7 +42,7 @@
   tags: deploy
 
 # This is wrong. Do this manually for now.
-- lineinfile: dest=/etc/nginx/nginx.conf line="include /etc/nginx/sites-enabled/*;"
+#- lineinfile: dest=/etc/nginx/nginx.conf line="include /etc/nginx/sites-enabled/*;"
 
 # MANUAL TO-DO:
 # Also check that nginx user is correct (might need to change to www-data from nginx)
@@ -70,14 +74,21 @@
   template: src=../../../../provision_proj/templates/nginx_site_config_https.j2
             dest=/etc/nginx/sites-available/{{ project_name }}
             backup=yes
-  when: use_https == true
+  when: use_https == true and vagrant_mode == false
   notify: reload nginx
 
 - name: Create the Nginx HTTP configuration file
   template: src=../../../../provision_proj/templates/nginx_site_config_http.j2
             dest=/etc/nginx/sites-available/{{ project_name }}
             backup=yes
-  when: use_https == false
+  when: use_https == false and vagrant_mode == false
+  notify: reload nginx
+
+- name: Create the Nginx HTTP configuration file for vagrant
+  template: src=../../../../provision_proj/templates/nginx_site_config_http_vagrant.j2
+            dest=/etc/nginx/sites-available/{{ project_name }}
+            backup=yes
+  when: use_https == false and vagrant_mode == true
   notify: reload nginx
 
 - name: Ensure that the default site is disabled

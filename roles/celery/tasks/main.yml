@@ -46,6 +46,7 @@
             owner={{ celery_user }}
             group={{ celery_group }}
             mode=0755
+  when: use_2nd_celery == true
   tags:
     - celery
 
@@ -55,6 +56,7 @@
             owner={{ celery_user }}
             group={{ celery_group }}
             mode=0755
+  when: use_3rd_celery == true
   tags:
     - celery
 
@@ -184,14 +186,14 @@
 
 - name: Restart the second celery app
   supervisorctl: name={{ celery_appname }}2 state=restarted
-  when: supervisor_applications.stdout.find('{{ celery_appname }}2') != -1
+  when: supervisor_applications.stdout.find('{{ celery_appname }}2') != -1 and use_2nd_celery == true
   tags:
     - celery
     - deploy
 
 - name: Restart the third celery app
   supervisorctl: name={{ celery_appname }}3 state=restarted
-  when: supervisor_applications.stdout.find('{{ celery_appname }}3') != -1
+  when: supervisor_applications.stdout.find('{{ celery_appname }}3') != -1 and use_3rd_celery == true
   tags:
     - celery
     - deploy
