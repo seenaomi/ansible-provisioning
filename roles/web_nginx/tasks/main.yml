@@ -18,6 +18,14 @@
   apt: name=nginx update_cache=yes state=installed
   tags: packages
 
+# Template is in project-specific provision/templates dir
+- name: Replace NGINX config file
+  template: src=../../../../provision_proj/templates/nginx.conf.j2
+            dest=/etc/nginx/nginx.conf
+            backup=yes
+  when: vagrant_mode == false
+  notify: reload nginx
+
 - name: Create sites-available dir
   file:
     path: /etc/nginx/sites-available/
