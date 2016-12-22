@@ -61,7 +61,7 @@
     - celery
 
 - name: Create the Supervisor config file
-  template: src=supervisor_celery.conf.j2
+  template: src=../../../../provision_proj/templates/supervisor_celery.conf.j2
             dest=/etc/supervisor/conf.d/{{ celery_appname }}.conf
   tags:
     - celery
@@ -119,8 +119,8 @@
   tags:
     - celery
 
-- name: Create the Supervisor config file
-  template: src=supervisor_celerybeat.conf.j2
+- name: Create the Supervisor celerybeat config file
+  template: src=../../../../provision_proj/templates/supervisor_celerybeat.conf.j2
             dest=/etc/supervisor/conf.d/{{ celerybeat_appname }}.conf
   tags:
     - celery

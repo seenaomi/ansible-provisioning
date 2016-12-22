@@ -3,7 +3,7 @@
 celery_user: celery
 celery_group: celery
 
-celery_appname: "celery_{{ project_name }}"
+celery_appname: "{{ project_name }}_celery"
 celery_scripts_dir: "{{ venv_dir }}/scripts"
 celery_template_file: celery_start.j2
 celery_template_file2: celery_start2.j2
@@ -14,7 +14,7 @@ celery_log_file: "{{ celery_log_dir }}/celery.log"
 
 flower_admin_password: password
 
-celerybeat_appname: "celerybeat_{{ project_name }}"
+celerybeat_appname: "{{ project_name }}_celerybeat"
 celerybeat_scripts_dir: "{{ venv_dir }}/scripts"
 celerybeat_template_file: celerybeat_start.j2
 

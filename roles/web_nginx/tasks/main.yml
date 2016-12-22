@@ -12,15 +12,10 @@
 - lineinfile: dest=/etc/apt/sources.list.d/nginx.list line="deb-src http://nginx.org/packages/debian/ jessie nginx"
 
 - name: Download PGP key for nginx
-  shell: curl http://nginx.org/keys/nginx_signing.key | apt-key add -
-
-
-- name: Install Nginx
-  apt: name=nginx-full update_cache=yes state=installed
-  tags: packages
+  shell: curl nginx.org/keys/nginx_signing.key | apt-key add -
 
 - name: Install Nginx
-  apt: name=nginx-common update_cache=yes state=installed
+  apt: name=nginx update_cache=yes state=installed
   tags: packages
 
 - name: Create sites-available dir

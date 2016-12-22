@@ -1,4 +1,4 @@
-upstream wsgi_server {
+upstream wsgi_server_{{ project_name }} {
   # fail_timeout=0 means we always retry an upstream even if it failed
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
@@ -28,14 +28,25 @@ server {
             return 503;
         }
 
+        # Apply rate limiting and use zone defined above
+        limit_req zone={{ project_name }} burst=5;
+
+        # an HTTP header important enough to have its own Wikipedia entry:
+        #   http://en.wikipedia.org/wiki/X-Forwarded-For
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
+
+        # pass the Host: header from the client right along so redirects
+        # can be set properly within the application
+        proxy_set_header Host $http_host;
+
+        # we don't want nginx trying to do something clever with
+        # redirects, we set the Host: header above already.
         proxy_redirect off;
 
         # Try to serve static files from nginx, no point in making an
         # *application* server like Unicorn/Rainbows! serve static files.
         if (!-f $request_filename) {
-            proxy_pass http://wsgi_server;
+            proxy_pass http://wsgi_server_{{ project_name }};
             break;
         }
     }
