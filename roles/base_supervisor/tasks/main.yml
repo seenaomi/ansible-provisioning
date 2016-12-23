@@ -1,0 +1,12 @@
+---
+
+# Install supervisor
+- name: Ensure supervisor is installed
+  apt: name=supervisor state=present
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure supervisor is installed
+  yum: name=supervisor state=present
+  when: ansible_os_family == 'RedHat'
+
+

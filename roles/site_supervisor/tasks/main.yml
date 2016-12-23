@@ -18,16 +18,6 @@
     mode: u=rw,g=rw,o=
 
 
-# Install supervisor
-- name: Ensure supervisor is installed
-  apt: name=supervisor state=present
-  when: ansible_os_family == 'Debian'
-
-- name: Ensure supervisor is installed
-  yum: name=supervisor state=present
-  when: ansible_os_family == 'RedHat'
-
-
 # Access permissions
 - name: Users like webserver and proj can access path to src and to app log
   file:
