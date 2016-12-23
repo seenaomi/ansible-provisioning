@@ -73,7 +73,6 @@ static/bower_components/*
 # PROVISIONING
 .vagrant
 group_vars/*
-roles/project_specific/*
 servers/*
 nginx_site_config*
 

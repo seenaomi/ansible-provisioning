@@ -1,26 +1,12 @@
 ---
 
-# Set up celery user and group
-- name: Create the celery user
-  user: name={{ celery_user }} state=present
-
-- name: Create the celery group
-  group: name={{ celery_group }} system=yes state=present
-
-- name: Add the celery user to the celery group
-  user: name={{ celery_user }} group={{ celery_group }} state=present
-
 - name: Add the celery user to the PROJECT group
   user: name={{ celery_user }} groups={{ proj_group }} append=yes state=present
-
-- name: Add celery user to vagrant group when using vagrant, so it can access config file
-  user: name={{ celery_user }} groups=vagrant append=yes
-  when: vagrant_mode == true
-
 
 # Set up celery in python
 - name: Ensure celery is installed
   pip: virtualenv={{ venv_dir }} name=celery
+
 
 - name: Create the folder for the celery scripts
   file: path={{ celery_scripts_dir }}

@@ -1,8 +1,6 @@
 ---
 
-celery_user: celery
-celery_group: celery
-
+# CELERY
 celery_appname: "{{ project_name }}_celery"
 celery_scripts_dir: "{{ venv_dir }}/scripts"
 celery_template_file: celery_start.j2

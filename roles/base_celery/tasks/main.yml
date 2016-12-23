@@ -1,0 +1,15 @@
+---
+
+# Set up celery user and group
+- name: Create the celery user
+  user: name={{ celery_user }} state=present
+
+- name: Create the celery group
+  group: name={{ celery_group }} system=yes state=present
+
+- name: Add the celery user to the celery group
+  user: name={{ celery_user }} group={{ celery_group }} state=present
+
+- name: Add celery user to vagrant group when using vagrant, so it can access config file
+  user: name={{ celery_user }} groups=vagrant append=yes
+  when: vagrant_mode == true
