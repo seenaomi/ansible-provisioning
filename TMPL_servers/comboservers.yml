@@ -9,20 +9,27 @@
   vars:
     - setup_git_repo: no
   vars_files:
-    - group_vars/all.yml
-    - group_vars/dbservers.yml
-    - "host_vars/{{ ansible_os_family }}.yml"
-    - group_vars/webservers.yml
-    - group_vars/production.yml
+    - "../group_vars/all.yml"
+    - "../../provision/host_vars/{{ ansible_os_family }}.yml"
+    - "../group_vars/dbservers.yml"
+    - "../group_vars/webservers.yml"
+    - "../group_vars/production.yml"
 
   roles:
-    - base_debian
-    - base_python3
-    - db_postgres
-    - rabbitmq
-    - venv_gunicorn
-    - web_nginx
-    - supervisor
-    - django  # Requires venv_gunicorn, webnginx, supervisor roles
-    - celery
-    - project_specific
+    # roles for setting up generic SERVER
+#    - ../../provision/roles/base_debian
+#    - ../../provision/roles/base_python3
+#    - ../../provision/roles/base_db_postgres
+    - ../../provision/roles/base_web_nginx
+    - ../../provision/roles/base_supervisor
+    - ../../provision/roles/base_rabbitmq
+    - ../../provision/roles/base_celery
+
+    # Roles for actual site
+    - ../../provision/roles/site_db_postgres
+    - ../../provision/roles/site_web_nginx
+    - ../../provision/roles/site_supervisor
+    - ../../provision/roles/site_rabbitmq
+    - ../../provision/roles/site_celery
+    - ../../provision/roles/site_venv_gunicorn
+    - ../../provision/roles/site_django
