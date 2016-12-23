@@ -1,15 +1,18 @@
 ---
 
 project_web_address: "{{ project_name }}.com"  # Don't include www
-
 webserver_user: www-data
+webserver_group: www-data
 
+
+# HTTPS/SSL SETTINGS
 ssl_cert: "{{ project_name }}.crt"
 ssl_cert_path: "{{ ssl_dest_dir }}/{{ ssl_cert }}"
 ssl_cert_key: "{{ project_name }}.key"
 ssl_cert_key_path: "{{ ssl_dest_dir }}/{{ ssl_cert_key }}"
 ssl_trust_cert: "trusted_chain.pem"
 ssl_trust_cert_path: "{{ ssl_dest_dir }}/{{ ssl_trust_cert }}"
+
 
 # DIRECTORY SETTINGS
 home_dir: "/opt/{{ project_name }}"
@@ -28,19 +31,40 @@ django_error_log: "{{ log_dir }}/django_errors.log"
 
 # Dynamic content dirs
 content_dir: "/var/opt/{{ project_name }}"
-data_dir: "{{ content_dir }}/data/"  # extra data files
+data_dir: "{{ content_dir }}/data/"  # extra data files, celerybeat
 static_dir: "{{ content_dir }}/static/"
 media_dir: "{{ content_dir }}/media/"
 
 media_subdirs:
   - "{{ media_dir }}/uploads"
 
-
 wsgi_py_path: "{{ project_name }}.wsgi.wsgi"
 
-# Celery queue names
+# Celery
+celery_user: celery
+celery_group: celery
+use_2nd_celery: false
+use_3rd_celery: false
 celery_queue1: "celery"
 celery_queue2: "optimizations"
 celery_num_procs: 4  # Also in vagrant settings
 
 use_https: true
+
+# Secret credentials for Django project
+DJANGO_SECRETS:
+  DJANGO_SECRET_KEY: "{{ django_secret_key }}"
+  DATABASE_NAME: "{{ db_name }}"
+  DATABASE_USER: "{{ db_user }}"
+  DATABASE_PASSWORD: "{{ db_password }}"
+  MAIL_USER: "{{ mail_user }}"
+  MAIL_PASSWORD: "{{ mail_password }}"
+  MAIL_API_KEY: "{{ mail_api_key }}"
+  VENV_DIR: "{{ venv_dir }}"
+  PROJECT_SHORT_NAME: "{{ project_name }}"
+  STATIC_ROOT: "{{ static_dir }}"
+  MEDIA_ROOT: "{{ media_dir }}"
+  DJANGO_LOG: "{{ django_log }}"
+  DJANGO_ERROR_LOG: "{{ django_error_log }}"
+  BROKER_USER: "{{ broker_user }}"
+  BROKER_PASSWORD: "{{ broker_password }}"
