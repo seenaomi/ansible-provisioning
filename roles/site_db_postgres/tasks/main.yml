@@ -1,12 +1,5 @@
 ---
 
-- include: setup_Debian.yml
-  when: ansible_os_family == "Debian"
-
-
-- name: Ensure the PostgreSQL service is running
-  service: name=postgresql state=started enabled=yes
-
 - name: Ensure database is created
   become_user: postgres
   vars:  # to avoid issue with becoming non-privileged user in Ansible 2.1.1

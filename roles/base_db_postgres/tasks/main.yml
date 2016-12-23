@@ -7,5 +7,10 @@
     - postgresql-contrib
     - python-psycopg2
     - libpq-dev
+  when: ansible_os_family == "Debian"
   tags: packages
+
+
+- name: Ensure the PostgreSQL service is running
+  service: name=postgresql state=started enabled=yes
 
