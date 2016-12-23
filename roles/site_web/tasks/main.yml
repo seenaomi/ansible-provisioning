@@ -1,9 +1,0 @@
----
-
-# Includes site-specific tasks that are not necessary for setting up actual server.
-
-#- name: Add gunicorn user to project group
-#  user: name={{ gunicorn_user }} group={{ proj_group }} state=present
-
-#- include: setup_git_repo.yml
-#  tags: deploy
